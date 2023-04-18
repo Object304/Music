@@ -88,12 +88,20 @@ namespace Project1 {
 	private: System::Windows::Forms::ToolStripMenuItem^ выходToolStripMenuItem;
 	private: System::Windows::Forms::OpenFileDialog^ ofdOpen;
 	private: System::Windows::Forms::SaveFileDialog^ sfdSave;
+
+
+
+
+	private: System::Windows::Forms::Button^ btn_autoFill;
+	private: System::Windows::Forms::Button^ btn_clear;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ clnName;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Singer;
 	private: System::Windows::Forms::DataGridViewComboBoxColumn^ Genre;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Len;
-	private: System::Windows::Forms::Button^ btn_autoFill;
-	private: System::Windows::Forms::Button^ btn_clear;
+
+
+
+
 
 
 
@@ -142,10 +150,6 @@ namespace Project1 {
 			this->btn_search = (gcnew System::Windows::Forms::Button());
 			this->btn_sort = (gcnew System::Windows::Forms::Button());
 			this->dgv = (gcnew System::Windows::Forms::DataGridView());
-			this->clnName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Singer = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Genre = (gcnew System::Windows::Forms::DataGridViewComboBoxColumn());
-			this->Len = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->btn_addat = (gcnew System::Windows::Forms::Button());
 			this->tbFind = (gcnew System::Windows::Forms::TextBox());
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
@@ -158,6 +162,10 @@ namespace Project1 {
 			this->sfdSave = (gcnew System::Windows::Forms::SaveFileDialog());
 			this->btn_autoFill = (gcnew System::Windows::Forms::Button());
 			this->btn_clear = (gcnew System::Windows::Forms::Button());
+			this->clnName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Singer = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Genre = (gcnew System::Windows::Forms::DataGridViewComboBoxColumn());
+			this->Len = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgv))->BeginInit();
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
@@ -215,35 +223,6 @@ namespace Project1 {
 			this->dgv->RowTemplate->Height = 28;
 			this->dgv->Size = System::Drawing::Size(999, 469);
 			this->dgv->TabIndex = 24;
-			// 
-			// clnName
-			// 
-			this->clnName->HeaderText = L"Название";
-			this->clnName->MinimumWidth = 8;
-			this->clnName->Name = L"clnName";
-			this->clnName->Width = 150;
-			// 
-			// Singer
-			// 
-			this->Singer->HeaderText = L"Исполнитель";
-			this->Singer->MinimumWidth = 8;
-			this->Singer->Name = L"Singer";
-			this->Singer->Width = 150;
-			// 
-			// Genre
-			// 
-			this->Genre->HeaderText = L"Жанр";
-			this->Genre->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"Классика", L"Фанк", L"Эмбиент", L"Фолк" });
-			this->Genre->MinimumWidth = 8;
-			this->Genre->Name = L"Genre";
-			this->Genre->Width = 150;
-			// 
-			// Len
-			// 
-			this->Len->HeaderText = L"Длительность";
-			this->Len->MinimumWidth = 8;
-			this->Len->Name = L"Len";
-			this->Len->Width = 150;
 			// 
 			// btn_addat
 			// 
@@ -341,6 +320,35 @@ namespace Project1 {
 			this->btn_clear->UseVisualStyleBackColor = true;
 			this->btn_clear->Click += gcnew System::EventHandler(this, &MyForm::btn_clear_Click);
 			// 
+			// clnName
+			// 
+			this->clnName->HeaderText = L"Название";
+			this->clnName->MinimumWidth = 8;
+			this->clnName->Name = L"clnName";
+			this->clnName->Width = 150;
+			// 
+			// Singer
+			// 
+			this->Singer->HeaderText = L"Исполнитель";
+			this->Singer->MinimumWidth = 8;
+			this->Singer->Name = L"Singer";
+			this->Singer->Width = 150;
+			// 
+			// Genre
+			// 
+			this->Genre->HeaderText = L"Жанр";
+			this->Genre->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"Pagan", L"Funk", L"Stoner", L"Folk" });
+			this->Genre->MinimumWidth = 8;
+			this->Genre->Name = L"Genre";
+			this->Genre->Width = 150;
+			// 
+			// Len
+			// 
+			this->Len->HeaderText = L"Длительность";
+			this->Len->MinimumWidth = 8;
+			this->Len->Name = L"Len";
+			this->Len->Width = 150;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
@@ -424,30 +432,23 @@ namespace Project1 {
 		if (ofdOpen->ShowDialog() == Windows::Forms::DialogResult::OK) {
 			MessageBox::Show("Вы выбрали: " + ofdOpen->FileName); // Просто хороший способ получить имя файла. 
 		}
-		String^ s = ofdOpen->FileName;
-		char* name = (char*)(void*)Marshal::StringToHGlobalAnsi(s);
-		strcat(name, "\0");
-
-		std::ifstream in(name, std::ios::binary);
+		char* name = (char*)(void*)Marshal::StringToHGlobalAnsi(ofdOpen->FileName);
+		std::ifstream in (name);
 		if (!in)
-			MessageBox::Show("Не удалось открыть файл " + s + " для чтения");
+			MessageBox::Show("Не удалось открыть файл " + ofdOpen->FileName + " для чтения");
 		else {
 			btn_clear_Click(sender, e);
-			int count;
-			in.read((char*)& count, sizeof(count));
-			//in.seekg(1, std::ios_base::beg);
-			String^ val = "e";
-			for (int i = 0; i < count; i++) {
+			char* val = new char[255];
+			for (int i = 0; in.eof() == false; i++) {
 				btn_append_Click(sender, e);
-				for (int j = 0; j < 4; j++) {
-					val = "";
-					in.read((char*)& val, sizeof(val));
-					//in.seekg(1, std::ios_base::beg);
-					String^ str = Convert::ToString(val);
+				for (int j = 0; j < 4 && (in.getline(val, sizeof(val))); j++) {
+					String^ str = gcnew String(val);
 					/*if (val != nullptr)*/
 					dgv[j, i]->Value = str;
 				}
 			}
+			delete[] val;
+			dgv->RowCount--;
 		}
 		in.close();
 
@@ -456,31 +457,33 @@ namespace Project1 {
 		if (sfdSave->ShowDialog() == Windows::Forms::DialogResult::OK) {
 			MessageBox::Show("Вы выбрали: " + sfdSave->FileName);
 		}
-		String^ s = sfdSave->FileName;
+		/*String^ s = sfdSave->FileName;
 		char* name = (char*)(void*)Marshal::StringToHGlobalAnsi(s);
-		strcat(name, "\0");
+		strcat(name, "\0");*/
 
-		/*FILE* fLog;
-		String^ name;
-		String^ singer;
-		String^ genre;
-		String^ len;
+		FILE* fLog;
 		fLog = fopen((char*)(void*)Marshal::StringToHGlobalAnsi(sfdSave->FileName), "w");
 		for (int i = 0; i < dgv->RowCount - 1; i++) {
-			name = dgv[0, i]->Value->ToString();
-			singer = dgv[1, i]->Value->ToString();
-			genre = dgv[2, i]->Value->ToString();
-			len = dgv[3, i]->Value->ToString();
+			String^ name = "";
+			String^ singer = "";
+			String^ genre = "";
+			String^ len = "";
+			if (dgv[0, i]->Value != nullptr)
+				name = dgv[0, i]->Value->ToString();
+			if (dgv[1, i]->Value != nullptr)
+				singer = dgv[1, i]->Value->ToString();
+			if (dgv[2, i]->Value != nullptr)
+				genre = dgv[2, i]->Value->ToString();
+			if (dgv[3, i]->Value != nullptr)
+				len = dgv[3, i]->Value->ToString();
 			fprintf(fLog, "%s\n%s\n%s\n%s\n", name, singer, genre, len);
 		}
-		fclose(fLog);*/
+		fclose(fLog);
 
-		std::ofstream out(name, std::ios::binary);
+		/*std::ofstream out (name, std::ios::binary);
 		if (!out)
 			MessageBox::Show("Не удалось открыть файл " + sfdSave->FileName + " для записи");
 		else {
-			int count = dgv->RowCount - 1;
-			out.write((char*)&count, sizeof(count));
 			for (int i = 0; i < dgv->RowCount - 1; i++) {
 				for (int j = 0; j < 4; j++) {
 					char* val = "";
@@ -490,7 +493,7 @@ namespace Project1 {
 				}
 			}
 		}
-		out.close();
+		out.close();*/
 
 	}
 	private: System::Void выходToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
