@@ -150,6 +150,10 @@ namespace Project1 {
 			this->btn_search = (gcnew System::Windows::Forms::Button());
 			this->btn_sort = (gcnew System::Windows::Forms::Button());
 			this->dgv = (gcnew System::Windows::Forms::DataGridView());
+			this->clnName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Singer = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Genre = (gcnew System::Windows::Forms::DataGridViewComboBoxColumn());
+			this->Len = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->btn_addat = (gcnew System::Windows::Forms::Button());
 			this->tbFind = (gcnew System::Windows::Forms::TextBox());
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
@@ -162,10 +166,6 @@ namespace Project1 {
 			this->sfdSave = (gcnew System::Windows::Forms::SaveFileDialog());
 			this->btn_autoFill = (gcnew System::Windows::Forms::Button());
 			this->btn_clear = (gcnew System::Windows::Forms::Button());
-			this->clnName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Singer = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Genre = (gcnew System::Windows::Forms::DataGridViewComboBoxColumn());
-			this->Len = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgv))->BeginInit();
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
@@ -224,6 +224,35 @@ namespace Project1 {
 			this->dgv->Size = System::Drawing::Size(999, 469);
 			this->dgv->TabIndex = 24;
 			// 
+			// clnName
+			// 
+			this->clnName->HeaderText = L"Íàçâàíèå";
+			this->clnName->MinimumWidth = 8;
+			this->clnName->Name = L"clnName";
+			this->clnName->Width = 150;
+			// 
+			// Singer
+			// 
+			this->Singer->HeaderText = L"Èñïîëíèòåëü";
+			this->Singer->MinimumWidth = 8;
+			this->Singer->Name = L"Singer";
+			this->Singer->Width = 150;
+			// 
+			// Genre
+			// 
+			this->Genre->HeaderText = L"Æàíð";
+			this->Genre->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"Pagan", L"Funk", L"Stoner", L"Folk" });
+			this->Genre->MinimumWidth = 8;
+			this->Genre->Name = L"Genre";
+			this->Genre->Width = 150;
+			// 
+			// Len
+			// 
+			this->Len->HeaderText = L"Äëèòåëüíîñòü";
+			this->Len->MinimumWidth = 8;
+			this->Len->Name = L"Len";
+			this->Len->Width = 150;
+			// 
 			// btn_addat
 			// 
 			this->btn_addat->Location = System::Drawing::Point(1017, 115);
@@ -265,38 +294,39 @@ namespace Project1 {
 			// îòêðûòüToolStripMenuItem
 			// 
 			this->îòêðûòüToolStripMenuItem->Name = L"îòêðûòüToolStripMenuItem";
-			this->îòêðûòüToolStripMenuItem->Size = System::Drawing::Size(232, 34);
+			this->îòêðûòüToolStripMenuItem->Size = System::Drawing::Size(270, 34);
 			this->îòêðûòüToolStripMenuItem->Text = L"Îòêðûòü";
 			this->îòêðûòüToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::îòêðûòüToolStripMenuItem_Click);
 			// 
 			// ñîõðàíèòüToolStripMenuItem
 			// 
 			this->ñîõðàíèòüToolStripMenuItem->Name = L"ñîõðàíèòüToolStripMenuItem";
-			this->ñîõðàíèòüToolStripMenuItem->Size = System::Drawing::Size(232, 34);
+			this->ñîõðàíèòüToolStripMenuItem->Size = System::Drawing::Size(270, 34);
 			this->ñîõðàíèòüToolStripMenuItem->Text = L"Ñîõðàíèòü";
 			this->ñîõðàíèòüToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::ñîõðàíèòüToolStripMenuItem_Click);
 			// 
 			// ñîõðàíèòüÊàêToolStripMenuItem
 			// 
 			this->ñîõðàíèòüÊàêToolStripMenuItem->Name = L"ñîõðàíèòüÊàêToolStripMenuItem";
-			this->ñîõðàíèòüÊàêToolStripMenuItem->Size = System::Drawing::Size(232, 34);
+			this->ñîõðàíèòüÊàêToolStripMenuItem->Size = System::Drawing::Size(270, 34);
 			this->ñîõðàíèòüÊàêToolStripMenuItem->Text = L"Ñîõðàíèòü êàê";
+			this->ñîõðàíèòüÊàêToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::ñîõðàíèòüÊàêToolStripMenuItem_Click);
 			// 
 			// âûõîäToolStripMenuItem
 			// 
 			this->âûõîäToolStripMenuItem->Name = L"âûõîäToolStripMenuItem";
-			this->âûõîäToolStripMenuItem->Size = System::Drawing::Size(232, 34);
+			this->âûõîäToolStripMenuItem->Size = System::Drawing::Size(270, 34);
 			this->âûõîäToolStripMenuItem->Text = L"Âûõîä";
 			this->âûõîäToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::âûõîäToolStripMenuItem_Click);
 			// 
 			// ofdOpen
 			// 
-			this->ofdOpen->DefaultExt = L"dat";
+			this->ofdOpen->DefaultExt = L"txt";
 			this->ofdOpen->FileName = L"MyFile";
 			// 
 			// sfdSave
 			// 
-			this->sfdSave->DefaultExt = L"dat";
+			this->sfdSave->DefaultExt = L"txt";
 			this->sfdSave->FileName = L"MyFile";
 			this->sfdSave->InitialDirectory = L"C:\\Users\\Zhon1\\Desktop\\Ïåñíè";
 			// 
@@ -319,35 +349,6 @@ namespace Project1 {
 			this->btn_clear->Text = L"Î÷èñòêà";
 			this->btn_clear->UseVisualStyleBackColor = true;
 			this->btn_clear->Click += gcnew System::EventHandler(this, &MyForm::btn_clear_Click);
-			// 
-			// clnName
-			// 
-			this->clnName->HeaderText = L"Íàçâàíèå";
-			this->clnName->MinimumWidth = 8;
-			this->clnName->Name = L"clnName";
-			this->clnName->Width = 150;
-			// 
-			// Singer
-			// 
-			this->Singer->HeaderText = L"Èñïîëíèòåëü";
-			this->Singer->MinimumWidth = 8;
-			this->Singer->Name = L"Singer";
-			this->Singer->Width = 150;
-			// 
-			// Genre
-			// 
-			this->Genre->HeaderText = L"Æàíð";
-			this->Genre->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"Pagan", L"Funk", L"Stoner", L"Folk" });
-			this->Genre->MinimumWidth = 8;
-			this->Genre->Name = L"Genre";
-			this->Genre->Width = 150;
-			// 
-			// Len
-			// 
-			this->Len->HeaderText = L"Äëèòåëüíîñòü";
-			this->Len->MinimumWidth = 8;
-			this->Len->Name = L"Len";
-			this->Len->Width = 150;
 			// 
 			// MyForm
 			// 
@@ -454,13 +455,14 @@ namespace Project1 {
 
 	}
 	private: System::Void ñîõðàíèòüToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (sfdSave->ShowDialog() == Windows::Forms::DialogResult::OK) {
-			MessageBox::Show("Âû âûáðàëè: " + sfdSave->FileName);
-		}
-		/*String^ s = sfdSave->FileName;
-		char* name = (char*)(void*)Marshal::StringToHGlobalAnsi(s);
-		strcat(name, "\0");*/
 
+		char* name = "C:\\Users\\Zhon1\\Desktop\\Ïåñíè\\MyFile.txt";
+		std::ifstream in(name);
+		if (!in) {
+			if (sfdSave->ShowDialog() == Windows::Forms::DialogResult::OK) {
+				MessageBox::Show("Âû âûáðàëè: " + sfdSave->FileName);
+			}
+		}
 		FILE* fLog;
 		fLog = fopen((char*)(void*)Marshal::StringToHGlobalAnsi(sfdSave->FileName), "w");
 		for (int i = 0; i < dgv->RowCount - 1; i++) {
@@ -480,36 +482,59 @@ namespace Project1 {
 		}
 		fclose(fLog);
 
-		/*std::ofstream out (name, std::ios::binary);
-		if (!out)
-			MessageBox::Show("Íå óäàëîñü îòêðûòü ôàéë " + sfdSave->FileName + " äëÿ çàïèñè");
-		else {
-			for (int i = 0; i < dgv->RowCount - 1; i++) {
-				for (int j = 0; j < 4; j++) {
-					char* val = "";
-					if (dgv[j, i]->Value != nullptr)
-						val = ((char*)(void*)Marshal::StringToHGlobalAnsi(dgv[j, i]->Value->ToString()));
-					out.write((char*)& val, sizeof(val));
-				}
-			}
-		}
-		out.close();*/
-
 	}
 	private: System::Void âûõîäToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 		Application::Exit();
 	}
 	private: System::Void btn_autoFill_Click(System::Object^ sender, System::EventArgs^ e) {
-		btn_append_Click(sender, e);
-		btn_append_Click(sender, e);
-		btn_append_Click(sender, e);
-		btn_append_Click(sender, e);
-
+		char* name = "C:\\Users\\Zhon1\\Desktop\\Ïåñíè\\AutoFill.txt";
+		std::ifstream in(name);
+		if (!in)
+			MessageBox::Show("Íå óäàëîñü îòêðûòü ôàéë " + ofdOpen->FileName + " äëÿ ÷òåíèÿ");
+		else {
+			btn_clear_Click(sender, e);
+			char* val = new char[255];
+			for (int i = 0; in.eof() == false; i++) {
+				btn_append_Click(sender, e);
+				for (int j = 0; j < 4 && (in.getline(val, sizeof(val))); j++) {
+					String^ str = gcnew String(val);
+					/*if (val != nullptr)*/
+					dgv[j, i]->Value = str;
+				}
+			}
+			delete[] val;
+			dgv->RowCount--;
+		}
+		in.close();
 	}
 private: System::Void btn_clear_Click(System::Object^ sender, System::EventArgs^ e) {
 	for (int i = 0, j = dgv->RowCount - 1; i < j; i++) {
 		dgv->Rows->RemoveAt(dgv->Rows[0]->Index);
 	}
+}
+private: System::Void ñîõðàíèòüÊàêToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (sfdSave->ShowDialog() == Windows::Forms::DialogResult::OK) {
+		MessageBox::Show("Âû âûáðàëè: " + sfdSave->FileName);
+	}
+
+	FILE* fLog;
+	fLog = fopen((char*)(void*)Marshal::StringToHGlobalAnsi(sfdSave->FileName), "w");
+	for (int i = 0; i < dgv->RowCount - 1; i++) {
+		String^ name = "";
+		String^ singer = "";
+		String^ genre = "";
+		String^ len = "";
+		if (dgv[0, i]->Value != nullptr)
+			name = dgv[0, i]->Value->ToString();
+		if (dgv[1, i]->Value != nullptr)
+			singer = dgv[1, i]->Value->ToString();
+		if (dgv[2, i]->Value != nullptr)
+			genre = dgv[2, i]->Value->ToString();
+		if (dgv[3, i]->Value != nullptr)
+			len = dgv[3, i]->Value->ToString();
+		fprintf(fLog, "%s\n%s\n%s\n%s\n", name, singer, genre, len);
+	}
+	fclose(fLog);
 }
 };
 }
