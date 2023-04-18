@@ -1,4 +1,5 @@
 #pragma once
+#include "MyForm_add.h"
 #define _CRT_SECURE_NO_WARNINGS
 #define _USE_MATH_DEFINES
 #include <fstream>
@@ -30,7 +31,7 @@ namespace Project1 {
 			InitializeComponent();
 			dgv->AllowUserToDeleteRows = true;
 			dgv->RowCount = 1;
-			//lst = createlist<song>();
+			dlg_Add = gcnew MyForm_add();
 		}
 
 	protected:
@@ -98,6 +99,8 @@ namespace Project1 {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Singer;
 	private: System::Windows::Forms::DataGridViewComboBoxColumn^ Genre;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Len;
+	private: System::Windows::Forms::Button^ btn_change;
+
 
 
 
@@ -166,6 +169,7 @@ namespace Project1 {
 			this->sfdSave = (gcnew System::Windows::Forms::SaveFileDialog());
 			this->btn_autoFill = (gcnew System::Windows::Forms::Button());
 			this->btn_clear = (gcnew System::Windows::Forms::Button());
+			this->btn_change = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgv))->BeginInit();
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
@@ -182,7 +186,7 @@ namespace Project1 {
 			// 
 			// btn_delete
 			// 
-			this->btn_delete->Location = System::Drawing::Point(1017, 156);
+			this->btn_delete->Location = System::Drawing::Point(1017, 197);
 			this->btn_delete->Name = L"btn_delete";
 			this->btn_delete->Size = System::Drawing::Size(257, 35);
 			this->btn_delete->TabIndex = 18;
@@ -192,7 +196,7 @@ namespace Project1 {
 			// 
 			// btn_search
 			// 
-			this->btn_search->Location = System::Drawing::Point(1017, 238);
+			this->btn_search->Location = System::Drawing::Point(1017, 279);
 			this->btn_search->Name = L"btn_search";
 			this->btn_search->Size = System::Drawing::Size(257, 35);
 			this->btn_search->TabIndex = 19;
@@ -202,7 +206,7 @@ namespace Project1 {
 			// 
 			// btn_sort
 			// 
-			this->btn_sort->Location = System::Drawing::Point(1017, 197);
+			this->btn_sort->Location = System::Drawing::Point(1017, 238);
 			this->btn_sort->Name = L"btn_sort";
 			this->btn_sort->Size = System::Drawing::Size(257, 35);
 			this->btn_sort->TabIndex = 20;
@@ -255,7 +259,7 @@ namespace Project1 {
 			// 
 			// btn_addat
 			// 
-			this->btn_addat->Location = System::Drawing::Point(1017, 115);
+			this->btn_addat->Location = System::Drawing::Point(1017, 156);
 			this->btn_addat->Name = L"btn_addat";
 			this->btn_addat->Size = System::Drawing::Size(257, 35);
 			this->btn_addat->TabIndex = 15;
@@ -265,7 +269,7 @@ namespace Project1 {
 			// 
 			// tbFind
 			// 
-			this->tbFind->Location = System::Drawing::Point(1017, 279);
+			this->tbFind->Location = System::Drawing::Point(1017, 320);
 			this->tbFind->Name = L"tbFind";
 			this->tbFind->Size = System::Drawing::Size(257, 26);
 			this->tbFind->TabIndex = 25;
@@ -294,28 +298,28 @@ namespace Project1 {
 			// ÓÚÍ˚Ú¸ToolStripMenuItem
 			// 
 			this->ÓÚÍ˚Ú¸ToolStripMenuItem->Name = L"ÓÚÍ˚Ú¸ToolStripMenuItem";
-			this->ÓÚÍ˚Ú¸ToolStripMenuItem->Size = System::Drawing::Size(270, 34);
+			this->ÓÚÍ˚Ú¸ToolStripMenuItem->Size = System::Drawing::Size(232, 34);
 			this->ÓÚÍ˚Ú¸ToolStripMenuItem->Text = L"ŒÚÍ˚Ú¸";
 			this->ÓÚÍ˚Ú¸ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::ÓÚÍ˚Ú¸ToolStripMenuItem_Click);
 			// 
 			// ÒÓı‡ÌËÚ¸ToolStripMenuItem
 			// 
 			this->ÒÓı‡ÌËÚ¸ToolStripMenuItem->Name = L"ÒÓı‡ÌËÚ¸ToolStripMenuItem";
-			this->ÒÓı‡ÌËÚ¸ToolStripMenuItem->Size = System::Drawing::Size(270, 34);
+			this->ÒÓı‡ÌËÚ¸ToolStripMenuItem->Size = System::Drawing::Size(232, 34);
 			this->ÒÓı‡ÌËÚ¸ToolStripMenuItem->Text = L"—Óı‡ÌËÚ¸";
 			this->ÒÓı‡ÌËÚ¸ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::ÒÓı‡ÌËÚ¸ToolStripMenuItem_Click);
 			// 
 			// ÒÓı‡ÌËÚ¸ ‡ÍToolStripMenuItem
 			// 
 			this->ÒÓı‡ÌËÚ¸ ‡ÍToolStripMenuItem->Name = L"ÒÓı‡ÌËÚ¸ ‡ÍToolStripMenuItem";
-			this->ÒÓı‡ÌËÚ¸ ‡ÍToolStripMenuItem->Size = System::Drawing::Size(270, 34);
+			this->ÒÓı‡ÌËÚ¸ ‡ÍToolStripMenuItem->Size = System::Drawing::Size(232, 34);
 			this->ÒÓı‡ÌËÚ¸ ‡ÍToolStripMenuItem->Text = L"—Óı‡ÌËÚ¸ Í‡Í";
 			this->ÒÓı‡ÌËÚ¸ ‡ÍToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::ÒÓı‡ÌËÚ¸ ‡ÍToolStripMenuItem_Click);
 			// 
 			// ‚˚ıÓ‰ToolStripMenuItem
 			// 
 			this->‚˚ıÓ‰ToolStripMenuItem->Name = L"‚˚ıÓ‰ToolStripMenuItem";
-			this->‚˚ıÓ‰ToolStripMenuItem->Size = System::Drawing::Size(270, 34);
+			this->‚˚ıÓ‰ToolStripMenuItem->Size = System::Drawing::Size(232, 34);
 			this->‚˚ıÓ‰ToolStripMenuItem->Text = L"¬˚ıÓ‰";
 			this->‚˚ıÓ‰ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::‚˚ıÓ‰ToolStripMenuItem_Click);
 			// 
@@ -342,19 +346,30 @@ namespace Project1 {
 			// 
 			// btn_clear
 			// 
-			this->btn_clear->Location = System::Drawing::Point(1017, 311);
+			this->btn_clear->Location = System::Drawing::Point(1017, 352);
 			this->btn_clear->Name = L"btn_clear";
-			this->btn_clear->Size = System::Drawing::Size(257, 26);
+			this->btn_clear->Size = System::Drawing::Size(257, 35);
 			this->btn_clear->TabIndex = 28;
 			this->btn_clear->Text = L"Œ˜ËÒÚÍ‡";
 			this->btn_clear->UseVisualStyleBackColor = true;
 			this->btn_clear->Click += gcnew System::EventHandler(this, &MyForm::btn_clear_Click);
+			// 
+			// btn_change
+			// 
+			this->btn_change->Location = System::Drawing::Point(1017, 115);
+			this->btn_change->Name = L"btn_change";
+			this->btn_change->Size = System::Drawing::Size(257, 35);
+			this->btn_change->TabIndex = 29;
+			this->btn_change->Text = L"–Â‰‡ÍÚËÓ‚‡Ú¸";
+			this->btn_change->UseVisualStyleBackColor = true;
+			this->btn_change->Click += gcnew System::EventHandler(this, &MyForm::btn_change_Click);
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1405, 555);
+			this->Controls->Add(this->btn_change);
 			this->Controls->Add(this->btn_clear);
 			this->Controls->Add(this->btn_autoFill);
 			this->Controls->Add(this->tbFind);
@@ -377,11 +392,20 @@ namespace Project1 {
 
 		}
 #pragma endregion
-
-	private:
-
+		MyForm_add^ dlg_Add;
+	public:
+		void SetData() {
+			int index = dgv->RowCount - 2;
+			dgv[0, index]->Value = dlg_Add->GetName();
+			dgv[1, index]->Value = dlg_Add->GetAuthor();
+			dgv[2, index]->Value = dlg_Add->GetGenre();
+			dgv[3, index]->Value = dlg_Add->GetLen();
+		}
 	private: System::Void btn_append_Click(System::Object^ sender, System::EventArgs^ e) {
 		dgv->RowCount++;
+		dlg_Add->ShowDialog();
+		if (dlg_Add->AcceptButton)
+			SetData();
 	}
 	private: System::Void btn_addat_Click(System::Object^ sender, System::EventArgs^ e) {
 		for (int i = 0; i < dgv->RowCount; i++) {
@@ -535,6 +559,10 @@ private: System::Void ÒÓı‡ÌËÚ¸ ‡ÍToolStripMenuItem_Click(System::Object^ sender
 		fprintf(fLog, "%s\n%s\n%s\n%s\n", name, singer, genre, len);
 	}
 	fclose(fLog);
+}
+
+private: System::Void btn_change_Click(System::Object^ sender, System::EventArgs^ e) {
+	
 }
 };
 }
