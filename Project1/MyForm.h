@@ -394,18 +394,27 @@ namespace Project1 {
 #pragma endregion
 		MyForm_add^ dlg_Add;
 	public:
-		void SetData() {
-			int index = dgv->RowCount - 2;
+		void SetData(String^ s) {
+			int index;
+			if (s == "append")
+				index = dgv->RowCount - 2;
+			else
+				index = dgv->SelectedRows[0]->Index;
 			dgv[0, index]->Value = dlg_Add->GetName();
 			dgv[1, index]->Value = dlg_Add->GetAuthor();
 			dgv[2, index]->Value = dlg_Add->GetGenre();
 			dgv[3, index]->Value = dlg_Add->GetLen();
+			dlg_Add->SetName("");
+			dlg_Add->SetAuthor("");
+			dlg_Add->SetGenre("");
+			dlg_Add->SetLen("");
 		}
 	private: System::Void btn_append_Click(System::Object^ sender, System::EventArgs^ e) {
-		dgv->RowCount++;
 		dlg_Add->ShowDialog();
-		if (dlg_Add->AcceptButton)
-			SetData();
+		if (dlg_Add->AcceptButton) {
+			dgv->RowCount++;
+			SetData("append");
+		}
 	}
 	private: System::Void btn_addat_Click(System::Object^ sender, System::EventArgs^ e) {
 		for (int i = 0; i < dgv->RowCount; i++) {
@@ -465,7 +474,7 @@ namespace Project1 {
 			btn_clear_Click(sender, e);
 			char* val = new char[255];
 			for (int i = 0; in.eof() == false; i++) {
-				btn_append_Click(sender, e);
+				dgv->RowCount++;
 				for (int j = 0; j < 4 && (in.getline(val, sizeof(val))); j++) {
 					String^ str = gcnew String(val);
 					/*if (val != nullptr)*/
@@ -485,10 +494,11 @@ namespace Project1 {
 		if (!in) {
 			if (sfdSave->ShowDialog() == Windows::Forms::DialogResult::OK) {
 				MessageBox::Show("Âû âûáðàëè: " + sfdSave->FileName);
+				name = (char*)(void*)Marshal::StringToHGlobalAnsi(sfdSave->FileName);
 			}
 		}
 		FILE* fLog;
-		fLog = fopen((char*)(void*)Marshal::StringToHGlobalAnsi(sfdSave->FileName), "w");
+		fLog = fopen(name, "w");
 		for (int i = 0; i < dgv->RowCount - 1; i++) {
 			String^ name = "";
 			String^ singer = "";
@@ -519,7 +529,8 @@ namespace Project1 {
 			btn_clear_Click(sender, e);
 			char* val = new char[255];
 			for (int i = 0; in.eof() == false; i++) {
-				btn_append_Click(sender, e);
+				//btn_append_Click(sender, e);
+				dgv->RowCount++;
 				for (int j = 0; j < 4 && (in.getline(val, sizeof(val))); j++) {
 					String^ str = gcnew String(val);
 					/*if (val != nullptr)*/
@@ -562,7 +573,15 @@ private: System::Void ñîõðàíèòüÊàêToolStripMenuItem_Click(System::Object^ sender
 }
 
 private: System::Void btn_change_Click(System::Object^ sender, System::EventArgs^ e) {
-	
+	if (dgv->SelectedRows->Count == 0)
+		return;
+	dlg_Add->SetName(dgv[0, (dgv->SelectedRows[0]->Index)]->Value->ToString());
+	dlg_Add->SetAuthor(dgv[1, (dgv->SelectedRows[0]->Index)]->Value->ToString());
+	dlg_Add->SetGenre(dgv[2, (dgv->SelectedRows[0]->Index)]->Value->ToString());
+	dlg_Add->SetLen(dgv[3, (dgv->SelectedRows[0]->Index)]->Value->ToString());
+	dlg_Add->ShowDialog();
+	if (dlg_Add->AcceptButton)
+		SetData("change");
 }
 };
 }

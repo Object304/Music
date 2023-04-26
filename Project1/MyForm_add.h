@@ -1,5 +1,5 @@
 #pragma once
-
+//#include "MyForm.h"
 namespace Project1 {
 
 	using namespace System;
@@ -23,6 +23,7 @@ namespace Project1 {
 			//
 			dataGridView1->Columns[0]->Width = 100;
 			AcceptButton = btn_ok;
+			//dlg_Main = gcnew MyForm();
 		}
 
 	protected:
@@ -189,6 +190,7 @@ namespace Project1 {
 
 		}
 #pragma endregion
+		//MyForm^ dlg_Main;
 		public:
 		String^ GetName() {
 			return tb_Name->Text;
@@ -202,8 +204,21 @@ namespace Project1 {
 		String^ GetLen() {
 			return tb_Len->Text;
 		}
+		void SetName(String^ name) {
+			tb_Name->Text = name;
+		}
+		void SetAuthor(String^ author) {
+			tb_Author->Text = author;
+		}
+		void SetGenre(String^ genre) {
+			dataGridView1[0,0]->Value = genre;
+		}
+		void SetLen(String^ len) {
+			tb_Len->Text = len;
+		}
 	private: System::Void btn_ok_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
+		//dataGridView1->RowCount = 1;
 	}
 	};
 }
