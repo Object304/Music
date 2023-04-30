@@ -32,6 +32,7 @@ namespace Project1 {
 			dgv->AllowUserToDeleteRows = true;
 			dgv->RowCount = 1;
 			dlg_Add = gcnew MyForm_add();
+			nameFile = "C:\\Users\\Zhon1\\Desktop\\Ïåñíè\\MyFile.txt";
 		}
 
 	protected:
@@ -332,7 +333,6 @@ namespace Project1 {
 			// 
 			this->sfdSave->DefaultExt = L"txt";
 			this->sfdSave->FileName = L"MyFile";
-			this->sfdSave->InitialDirectory = L"C:\\Users\\Zhon1\\Desktop\\Ïåñíè";
 			// 
 			// btn_autoFill
 			// 
@@ -393,6 +393,7 @@ namespace Project1 {
 		}
 #pragma endregion
 		MyForm_add^ dlg_Add;
+		char* nameFile;
 	public:
 		void SetData(String^ s) {
 			int index;
@@ -489,16 +490,16 @@ namespace Project1 {
 	}
 	private: System::Void ñîõðàíèòüToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		char* name = "C:\\Users\\Zhon1\\Desktop\\Ïåñíè\\MyFile.txt";
-		std::ifstream in(name);
+		 
+		std::ifstream in(nameFile);
 		if (!in) {
 			if (sfdSave->ShowDialog() == Windows::Forms::DialogResult::OK) {
 				MessageBox::Show("Âû âûáðàëè: " + sfdSave->FileName);
-				name = (char*)(void*)Marshal::StringToHGlobalAnsi(sfdSave->FileName);
+				nameFile = (char*)(void*)Marshal::StringToHGlobalAnsi(sfdSave->FileName);
 			}
 		}
 		FILE* fLog;
-		fLog = fopen(name, "w");
+		fLog = fopen(nameFile, "w");
 		for (int i = 0; i < dgv->RowCount - 1; i++) {
 			String^ name = "";
 			String^ singer = "";
@@ -521,8 +522,8 @@ namespace Project1 {
 		Application::Exit();
 	}
 	private: System::Void btn_autoFill_Click(System::Object^ sender, System::EventArgs^ e) {
-		char* name = "C:\\Users\\Zhon1\\Desktop\\Ïåñíè\\AutoFill.txt";
-		std::ifstream in(name);
+		char* nameAuto = "C:\\Users\\Zhon1\\Desktop\\Ïåñíè\\AutoFill.txt";
+		std::ifstream in(nameAuto);
 		if (!in)
 			MessageBox::Show("Íå óäàëîñü îòêðûòü ôàéë " + ofdOpen->FileName + " äëÿ ÷òåíèÿ");
 		else {
@@ -551,9 +552,9 @@ private: System::Void ñîõðàíèòüÊàêToolStripMenuItem_Click(System::Object^ sender
 	if (sfdSave->ShowDialog() == Windows::Forms::DialogResult::OK) {
 		MessageBox::Show("Âû âûáðàëè: " + sfdSave->FileName);
 	}
-
+	nameFile = (char*)(void*)Marshal::StringToHGlobalAnsi(sfdSave->FileName);
 	FILE* fLog;
-	fLog = fopen((char*)(void*)Marshal::StringToHGlobalAnsi(sfdSave->FileName), "w");
+	fLog = fopen(nameFile, "w");
 	for (int i = 0; i < dgv->RowCount - 1; i++) {
 		String^ name = "";
 		String^ singer = "";
@@ -571,7 +572,6 @@ private: System::Void ñîõðàíèòüÊàêToolStripMenuItem_Click(System::Object^ sender
 	}
 	fclose(fLog);
 }
-
 private: System::Void btn_change_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (dgv->SelectedRows->Count == 0)
 		return;
