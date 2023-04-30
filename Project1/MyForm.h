@@ -327,12 +327,10 @@ namespace Project1 {
 			// ofdOpen
 			// 
 			this->ofdOpen->DefaultExt = L"txt";
-			this->ofdOpen->FileName = L"MyFile";
 			// 
 			// sfdSave
 			// 
 			this->sfdSave->DefaultExt = L"txt";
-			this->sfdSave->FileName = L"MyFile";
 			// 
 			// btn_autoFill
 			// 
@@ -575,10 +573,14 @@ private: System::Void ñîõðàíèòüÊàêToolStripMenuItem_Click(System::Object^ sender
 private: System::Void btn_change_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (dgv->SelectedRows->Count == 0)
 		return;
-	dlg_Add->SetName(dgv[0, (dgv->SelectedRows[0]->Index)]->Value->ToString());
-	dlg_Add->SetAuthor(dgv[1, (dgv->SelectedRows[0]->Index)]->Value->ToString());
-	dlg_Add->SetGenre(dgv[2, (dgv->SelectedRows[0]->Index)]->Value->ToString());
-	dlg_Add->SetLen(dgv[3, (dgv->SelectedRows[0]->Index)]->Value->ToString());
+	if (dgv[0, (dgv->SelectedRows[0]->Index)]->Value != nullptr)
+		dlg_Add->SetName(dgv[0, (dgv->SelectedRows[0]->Index)]->Value->ToString());
+	if (dgv[1, (dgv->SelectedRows[0]->Index)]->Value != nullptr)
+		dlg_Add->SetAuthor(dgv[1, (dgv->SelectedRows[0]->Index)]->Value->ToString());
+	if (dgv[2, (dgv->SelectedRows[0]->Index)]->Value != nullptr)
+		dlg_Add->SetGenre(dgv[2, (dgv->SelectedRows[0]->Index)]->Value->ToString());
+	if (dgv[3, (dgv->SelectedRows[0]->Index)]->Value != nullptr)
+		dlg_Add->SetLen(dgv[3, (dgv->SelectedRows[0]->Index)]->Value->ToString());
 	dlg_Add->ShowDialog();
 	if (dlg_Add->AcceptButton)
 		SetData("change");

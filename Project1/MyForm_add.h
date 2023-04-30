@@ -23,6 +23,7 @@ namespace Project1 {
 			//
 			dataGridView1->Columns[0]->Width = 100;
 			AcceptButton = btn_ok;
+			dataGridView1->RowCount = 1;
 			//dlg_Main = gcnew MyForm();
 		}
 
@@ -149,6 +150,7 @@ namespace Project1 {
 			// 
 			// dataGridView1
 			// 
+			this->dataGridView1->AllowUserToAddRows = false;
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dataGridView1->ColumnHeadersVisible = false;
 			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(1) { this->Column1 });
@@ -193,15 +195,23 @@ namespace Project1 {
 		//MyForm^ dlg_Main;
 		public:
 		String^ GetName() {
+			if (tb_Name->Text == nullptr)
+				return "";
 			return tb_Name->Text;
 		}
 		String^ GetAuthor() {
+			if (tb_Author->Text == nullptr)
+				return "";
 			return tb_Author->Text;
 		}
 		String^ GetGenre() {
+			if (dataGridView1[0, 0]->Value == nullptr)
+				return "";
 			return dataGridView1[0,0]->Value->ToString();
 		}
 		String^ GetLen() {
+			if (tb_Len->Text == nullptr)
+				return "";
 			return tb_Len->Text;
 		}
 		void SetName(String^ name) {
