@@ -397,7 +397,7 @@ namespace Project1 {
 			int index;
 			if (s == "append")
 				index = dgv->RowCount - 2;
-			else
+			if (s == "change")
 				index = dgv->SelectedRows[0]->Index;
 			dgv[0, index]->Value = dlg_Add->GetName();
 			dgv[1, index]->Value = dlg_Add->GetAuthor();
@@ -409,17 +409,42 @@ namespace Project1 {
 			dlg_Add->SetLen("");
 		}
 	private: System::Void btn_append_Click(System::Object^ sender, System::EventArgs^ e) {
-		dlg_Add->ShowDialog();
-		if (dlg_Add->AcceptButton) {
+		//dlg_Add->ShowDialog();
+		if (dlg_Add->ShowDialog() == Windows::Forms::DialogResult::OK) {
 			dgv->RowCount++;
 			SetData("append");
+		}
+		else {
+			dlg_Add->SetName("");
+			dlg_Add->SetAuthor("");
+			dlg_Add->SetGenre("");
+			dlg_Add->SetLen("");
 		}
 	}
 	private: System::Void btn_addat_Click(System::Object^ sender, System::EventArgs^ e) {
 		for (int i = 0; i < dgv->RowCount; i++) {
 			if (dgv->Rows[i]->Selected == true) {
-				dgv->Rows->Insert(i);
-				return;
+				/*dgv->Rows->Insert(i);
+				dgv->Rows[i + 1]->Selected = false;
+				dgv->Rows[i]->Selected = true;
+				btn_change_Click(sender, e);
+				return;*/
+				if (dlg_Add->ShowDialog() == Windows::Forms::DialogResult::OK)
+				{
+					dgv->Rows->Insert(i);
+					dgv->Rows[i + 1]->Selected = false;
+					dgv->Rows[i]->Selected = true;
+					SetData("change");
+					return;
+				}
+				else
+				{
+					dlg_Add->SetName("");
+					dlg_Add->SetAuthor("");
+					dlg_Add->SetGenre("");
+					dlg_Add->SetLen("");
+					return;
+				}
 			}
 		}
 	}
@@ -581,9 +606,16 @@ private: System::Void btn_change_Click(System::Object^ sender, System::EventArgs
 		dlg_Add->SetGenre(dgv[2, (dgv->SelectedRows[0]->Index)]->Value->ToString());
 	if (dgv[3, (dgv->SelectedRows[0]->Index)]->Value != nullptr)
 		dlg_Add->SetLen(dgv[3, (dgv->SelectedRows[0]->Index)]->Value->ToString());
-	dlg_Add->ShowDialog();
-	if (dlg_Add->AcceptButton)
+	if (dlg_Add->ShowDialog() == Windows::Forms::DialogResult::OK)
 		SetData("change");
+	else
+	{
+		dlg_Add->SetName("");
+		dlg_Add->SetAuthor("");
+		dlg_Add->SetGenre("");
+		dlg_Add->SetLen("");
+		return;
+	}
 }
 };
 }

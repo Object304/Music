@@ -21,9 +21,8 @@ namespace Project1 {
 			//
 			//TODO: добавьте код конструктора
 			//
-			dataGridView1->Columns[0]->Width = 100;
-			AcceptButton = btn_ok;
-			dataGridView1->RowCount = 1;
+			btn_ok->DialogResult = Windows::Forms::DialogResult::OK;
+			btnCancel->DialogResult = Windows::Forms::DialogResult::Cancel;
 			//dlg_Main = gcnew MyForm();
 		}
 
@@ -51,8 +50,10 @@ namespace Project1 {
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::Label^ label4;
-	private: System::Windows::Forms::DataGridView^ dataGridView1;
-	private: System::Windows::Forms::DataGridViewComboBoxColumn^ Column1;
+	private: System::Windows::Forms::ComboBox^ cb;
+	private: System::Windows::Forms::Button^ btnCancel;
+
+
 	protected:
 
 	private:
@@ -76,20 +77,18 @@ namespace Project1 {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
-			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-			this->Column1 = (gcnew System::Windows::Forms::DataGridViewComboBoxColumn());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+			this->cb = (gcnew System::Windows::Forms::ComboBox());
+			this->btnCancel = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// btn_ok
 			// 
-			this->btn_ok->Location = System::Drawing::Point(12, 275);
+			this->btn_ok->Location = System::Drawing::Point(12, 163);
 			this->btn_ok->Name = L"btn_ok";
-			this->btn_ok->Size = System::Drawing::Size(161, 33);
+			this->btn_ok->Size = System::Drawing::Size(161, 55);
 			this->btn_ok->TabIndex = 0;
 			this->btn_ok->Text = L"Подтвердить";
 			this->btn_ok->UseVisualStyleBackColor = true;
-			this->btn_ok->Click += gcnew System::EventHandler(this, &MyForm_add::btn_ok_Click);
 			// 
 			// tb_Name
 			// 
@@ -107,7 +106,7 @@ namespace Project1 {
 			// 
 			// tb_Len
 			// 
-			this->tb_Len->Location = System::Drawing::Point(12, 243);
+			this->tb_Len->Location = System::Drawing::Point(12, 110);
 			this->tb_Len->Name = L"tb_Len";
 			this->tb_Len->Size = System::Drawing::Size(198, 26);
 			this->tb_Len->TabIndex = 4;
@@ -142,40 +141,37 @@ namespace Project1 {
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(216, 246);
+			this->label4->Location = System::Drawing::Point(216, 113);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(121, 20);
 			this->label4->TabIndex = 8;
 			this->label4->Text = L"Длительность";
 			// 
-			// dataGridView1
+			// cb
 			// 
-			this->dataGridView1->AllowUserToAddRows = false;
-			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->ColumnHeadersVisible = false;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(1) { this->Column1 });
-			this->dataGridView1->Location = System::Drawing::Point(12, 79);
-			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->RowHeadersVisible = false;
-			this->dataGridView1->RowHeadersWidth = 62;
-			this->dataGridView1->RowTemplate->Height = 28;
-			this->dataGridView1->Size = System::Drawing::Size(198, 158);
-			this->dataGridView1->TabIndex = 9;
+			this->cb->FormattingEnabled = true;
+			this->cb->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"Pagan", L"Folk", L"Funk", L"Stoner" });
+			this->cb->Location = System::Drawing::Point(12, 76);
+			this->cb->Name = L"cb";
+			this->cb->Size = System::Drawing::Size(198, 28);
+			this->cb->TabIndex = 10;
 			// 
-			// Column1
+			// btnCancel
 			// 
-			this->Column1->HeaderText = L"Выбрать";
-			this->Column1->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"Pagan", L"Folk", L"Funk", L"Stoner" });
-			this->Column1->MinimumWidth = 8;
-			this->Column1->Name = L"Column1";
-			this->Column1->Width = 150;
+			this->btnCancel->Location = System::Drawing::Point(179, 163);
+			this->btnCancel->Name = L"btnCancel";
+			this->btnCancel->Size = System::Drawing::Size(161, 55);
+			this->btnCancel->TabIndex = 11;
+			this->btnCancel->Text = L"Отмена";
+			this->btnCancel->UseVisualStyleBackColor = true;
 			// 
 			// MyForm_add
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(390, 320);
-			this->Controls->Add(this->dataGridView1);
+			this->ClientSize = System::Drawing::Size(390, 249);
+			this->Controls->Add(this->btnCancel);
+			this->Controls->Add(this->cb);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
@@ -186,7 +182,6 @@ namespace Project1 {
 			this->Controls->Add(this->btn_ok);
 			this->Name = L"MyForm_add";
 			this->Text = L"MyForm_add";
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -205,9 +200,9 @@ namespace Project1 {
 			return tb_Author->Text;
 		}
 		String^ GetGenre() {
-			if (dataGridView1[0, 0]->Value == nullptr)
+			if (cb->Text == nullptr)
 				return "";
-			return dataGridView1[0,0]->Value->ToString();
+			return cb->Text;
 		}
 		String^ GetLen() {
 			if (tb_Len->Text == nullptr)
@@ -221,14 +216,22 @@ namespace Project1 {
 			tb_Author->Text = author;
 		}
 		void SetGenre(String^ genre) {
-			dataGridView1[0,0]->Value = genre;
+			cb->Text = genre;
 		}
 		void SetLen(String^ len) {
 			tb_Len->Text = len;
 		}
 	private: System::Void btn_ok_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->Close();
-		//dataGridView1->RowCount = 1;
+		SetName("");
+		SetAuthor("");
+		SetGenre("");
+		SetLen("");
 	}
-	};
+	private: System::Void btnCancel_Click(System::Object^ sender, System::EventArgs^ e) {
+		SetName("");
+		SetAuthor("");
+		SetGenre("");
+		SetLen("");
+	}
+};
 }
