@@ -499,7 +499,7 @@ namespace Project1 {
 			char* val = new char[255];
 			for (int i = 0; in.eof() == false; i++) {
 				dgv->RowCount++;
-				for (int j = 0; j < 4 && (in.getline(val, sizeof(val))); j++) {
+				for (int j = 0; j < 4 && (in.getline(val, 255)); j++) {
 					String^ str = gcnew String(val);
 					/*if (val != nullptr)*/
 					dgv[j, i]->Value = str;
